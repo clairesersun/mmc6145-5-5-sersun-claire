@@ -8,15 +8,18 @@ import styles from "../styles/search.module.css";
 
 // TODO: destructure query from argument passed to getServerSideProps
 export async function getServerSideProps({ query }) {
-  const props = {};
-  // TODO: use searchRecipes to attach recipes prop based on query parameter
-  let searchedRecipes = searchRecipes(query);
-  let recipes = searchedRecipes.map(({ id, title, image }) => ({
-    id,
-    title,
-    image,
-  }));
-  return { props: { recipes } };
+  if (!query) return;
+  else {
+    const props = {};
+    // TODO: use searchRecipes to attach recipes prop based on query parameter
+    const search = await searchRecipes(query);
+    const recipes = search.map(({}) => ({
+      id,
+      title,
+      image,
+    }));
+    return { props: { recipes } };
+  }
 }
 
 export default function Search({ recipes }) {
@@ -28,10 +31,7 @@ export default function Search({ recipes }) {
     if (!query.trim()) return;
     // TODO: Use router.replace with router.pathname + queryString to send query to getServerSideProps
     let queryString = query.replace(/ /g, "");
-    router.replace({
-      pathname: router.pathname,
-      query: queryString,
-    });
+    router.replace(router.pathname + "?q=" + queryString);
   }
   return (
     <>

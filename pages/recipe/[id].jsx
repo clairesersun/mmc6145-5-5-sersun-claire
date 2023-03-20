@@ -8,7 +8,7 @@ import styles from "../../styles/recipe.module.css";
 export async function getServerSideProps({ id }) {
   const props = {};
   // TODO: call getRecipe using id parameter and pass return value as recipeInfo prop
-  let receivedRecipe = getRecipe(id);
+  let receivedRecipe = await getRecipe(id);
   let recipeInfo = receivedRecipe.map(
     ({
       image,
