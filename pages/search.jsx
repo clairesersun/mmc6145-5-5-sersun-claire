@@ -56,7 +56,7 @@ export default function Search({ recipes }) {
         <section className={styles.results}>
           {/* TODO: Render recipes with RecipePreview Component */}
           {recipes?.map(({ id, title, image }) => (
-            <RecipePreview key={id} title={title} image={image} />
+            <RecipePreview key={id} id={id} title={title} image={image} />
           ))}
         </section>
       ) : (
